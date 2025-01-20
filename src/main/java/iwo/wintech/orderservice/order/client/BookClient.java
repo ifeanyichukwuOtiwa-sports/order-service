@@ -27,6 +27,7 @@ public class BookClient implements BookApiClient {
 
     @Override
     public Mono<Book> getBookByIsbn(final String isbn) {
+        log.info("Fetching book by ISBN: {}", isbn);
         return webClient.get()
                 .uri(BOOK_BASE_URL + isbn)
                 .retrieve()

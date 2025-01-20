@@ -54,3 +54,27 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${SPRING_CLOUD_VERSION}"
+        mavenBom "org.testcontainers:testcontainers-bom:${TEST_CONTAINER_VERSION}"
+    }
+}
+
+bootBuildImage {
+    builder = "docker.io/paketobuildpacks/builder-jammy-base"
+    imageName = "${ project.name }"
+    environment = ["BP_JVM_VERSION" : "21-ubi9-minimal",
+                   "BP_IMAGE_LABELS": "org.opencontainers.image.source=${ VCS_PROVIDER }/${ VCS_OWNER }/${ REPOSITORY } org.opencontainers.image.description=${project.name}-Image"
+    ]
+
+    docker {
+        publishRegistry {
+            imageName = "${ CONTAINER_REGISTRY }/${ VCS_OWNER }/${ project.name }"
+            username = project.findProperty("registryUsername")
+            password = project.findProperty("registryToken")
+            url = project.findProperty("registryUrl")
+        }
+    }
+}
