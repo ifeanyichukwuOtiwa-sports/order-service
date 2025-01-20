@@ -28,12 +28,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+    implementation "io.hypersistence:hypersistence-utils-hibernate-63:${HYPERSISTENCE_VERSION}"
+
     compileOnly 'org.projectlombok:lombok'
 
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'org.postgresql:r2dbc-postgresql'
+    runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+    runtimeOnly 'org.springframework:spring-jdbc'
 
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
@@ -41,6 +46,8 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'org.testcontainers:r2dbc'
+
+    testImplementation "com.squareup.okhttp3:mockwebserver:${OKHTTP3_MOCK_WEB_SERVER_VERSION}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

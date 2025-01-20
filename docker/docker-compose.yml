@@ -1,0 +1,14 @@
+version: "3.8"
+
+name: order-service-compose
+
+services:
+  polar-order-postgres:
+    image: "postgres:14.4"
+    container_name: "polar-order-postgres"
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=polardb_order
